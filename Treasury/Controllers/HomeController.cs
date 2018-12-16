@@ -30,6 +30,18 @@ namespace Treasury.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AddTransaction(double amount, string description)
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                db.Transactions.Add(new Data.Models.Transaction { Amount = amount, Description = description, TransactionDate = DateTime.UtcNow });
+                db.SaveChanges();
+            }
+
+            return null;
+        }
+
         public IActionResult Transactions()
         {
             ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
