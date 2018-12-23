@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Treasury.Data\Treasury.Data.csproj" />
+    <ProjectReference Include="..\Treasury.Business\Treasury.Business.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\Home\Transactions.html" />

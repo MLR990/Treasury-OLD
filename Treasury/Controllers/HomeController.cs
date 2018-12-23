@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Treasury.Models;
 using Treasury.Data;
+using Treasury.Business.Models;
+using Treasury.Business.Logic;
 
 namespace Treasury.Controllers
 {
@@ -13,31 +15,17 @@ namespace Treasury.Controllers
     {
         public IActionResult Index()
         {
-            using (TreasuryContext db = new TreasuryContext())
-            {
-                try
-                {
-                    db.Vendors.Add(new Data.Models.Vendor { Name = "Skyline Gourmet Deli" });
-                    db.Transactions.Add(new Data.Models.Transaction { Amount = 1490.48, Description = "Paycheck", TransactionDate = DateTime.UtcNow });
-                    db.SaveChanges();
-                }
-                catch
-                {
-
-                }
-
-            }
             return View();
         }
 
         [HttpPost]
         public ActionResult AddTransaction(double amount, string description)
         {
-            using (TreasuryContext db = new TreasuryContext())
-            {
-                db.Transactions.Add(new Data.Models.Transaction { Amount = amount, Description = description, TransactionDate = DateTime.UtcNow });
-                db.SaveChanges();
-            }
+            TransactionModel model = new TransactionModel { Amount = amount, Description = description };
+
+            TransactionService service = new TransactionService();
+
+            service.AddTransaction(model);
 
             return null;
         }
