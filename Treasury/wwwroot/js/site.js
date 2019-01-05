@@ -4,7 +4,12 @@
 // Write your JavaScript code.
 
     $('#addTransaction').on('click', function(){
-var transactionAmount = $('#transactionAmount').val();
-var desc = $('#transactionDescription').val();
+        var transactionAmount = $('#transactionAmount').val();
+        var desc = $('#transactionDescription').val();
         $.post('AddTransaction', {amount: transactionAmount, description: desc});
+    });
+
+    $('#addVendor').on('click', function(){
+        var name = $('#vendorName').val();
+        $.post('AddVendor', {vendorName: name});
     });

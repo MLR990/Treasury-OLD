@@ -30,9 +30,27 @@ namespace Treasury.Controllers
             return null;
         }
 
+        [HttpPost]
+        public ActionResult AddVendor(string vendorName)
+        {
+
+            VendorService service = new VendorService();
+
+            service.AddVendor(vendorName);
+
+            return null;
+        }
+
         public IActionResult Transactions()
         {
             ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
+
+            return View();
+        }
+
+        public IActionResult Vendors()
+        {
+            ViewData["Message"] = "Add in the people who take my money";
 
             return View();
         }
