@@ -14,5 +14,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\Home\Transactions.html" />
+    <None Remove="Views\Home\Budget.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Budget.cshtml" />
   </ItemGroup>
 </Project>

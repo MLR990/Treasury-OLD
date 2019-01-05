@@ -11,4 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Treasury.Data\Treasury.Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
 </Project>

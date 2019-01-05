@@ -13,6 +13,9 @@ namespace Treasury.Data
 
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
+        public DbSet<Income> Income { get; set; }
     }
 
 

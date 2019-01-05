@@ -41,6 +41,12 @@ namespace Treasury.Controllers
             return null;
         }
 
+        [HttpPost]
+        public ActionResult AddBudget()
+        {
+            return null;
+        }
+
         public IActionResult Transactions()
         {
             ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
@@ -58,6 +64,13 @@ namespace Treasury.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
+
+            return View();
+        }
+
+        public IActionResult Budget()
+        {
+            ViewData["Message"] = "Set up them budgets here";
 
             return View();
         }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Treasury.Data;
 
 namespace Treasury.Business.Logic
@@ -17,5 +19,15 @@ namespace Treasury.Business.Logic
                 db.SaveChanges();
             }
         }
+
+        public IEnumerable<Data.Models.Vendor> GetVendors()
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                return db.Vendors.Select(x => x).ToList();
+            }
+        }
+
+
     }
 }
