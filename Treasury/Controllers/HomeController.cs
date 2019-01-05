@@ -42,7 +42,15 @@ namespace Treasury.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddBudget()
+        public ActionResult AddCoffer(string name, string description)
+        {
+            BudgetService budgetService = new BudgetService();
+            budgetService.AddCoffer(name, description);
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult AddBudget(double amount, string name, int order, bool necessary, string type, string month)
         {
             return null;
         }
@@ -70,10 +78,19 @@ namespace Treasury.Controllers
 
         public IActionResult Budget()
         {
+            BudgetService budgetService = new BudgetService();
             ViewData["Message"] = "Set up them budgets here";
+            ViewData["Coffers"] = budgetService.GetCoffers();
+            return View();
+        }
+
+        public IActionResult Coffer()
+        {
+            ViewData["Message"] = "Set up the coffers";
 
             return View();
         }
+
 
         public IActionResult Privacy()
         {

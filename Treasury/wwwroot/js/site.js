@@ -13,3 +13,20 @@
         var name = $('#vendorName').val();
         $.post('AddVendor', {vendorName: name});
     });
+
+    $('#addBudget').on('click', function(){
+        var name = $('#budgetName').val();
+        var amount = $('#budgetAmount').val();
+        var order = $('#budgetOrder').val();
+        var necessary =  $("#budgetNecessary").prop('checked');
+        var type = $('#budgetType').val();
+        var month = $('#budgetMonth').val();
+
+        $.post('AddBudget', {name: name, amount: amount, order: order, necessary: necessary, type: type, month: month});
+    });
+
+    $('#addCoffer').on('click', function(){
+        var name = $('#cofferName').val();
+        var description = $('#cofferDescription').val();
+        $.post('AddCoffer', {name: name, description: description});
+    });
