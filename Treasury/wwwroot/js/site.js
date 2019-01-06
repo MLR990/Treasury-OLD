@@ -33,3 +33,10 @@
         var description = $('#budgetDescription').val();
         $.post('AddBudget', {name: name, description: description});
     });
+
+    $('#addAccount').on('click', function(){
+        var name = $('#accountName').val();
+        var balance = $('#accountBalance').val();
+        var type = $('#AccountType').val();
+        $.post('AddAccount', {name: name, balance: balance, type: type});
+    });

@@ -29,6 +29,7 @@ namespace Treasury.Data.Models
         Checking,
         Savings,
         Credit,
+        Investment,
         Cash
     }
 }

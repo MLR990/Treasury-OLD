@@ -60,6 +60,13 @@ namespace Treasury.Controllers
             return null;
         }
 
+        [HttpPost]
+        public ActionResult AddAccount(string name, double balance, string type)
+        {
+            AccountService accountService = new AccountService();
+            accountService.AddAccount(name, type, balance);
+            return null;
+        }
         public IActionResult Transactions()
         {
             ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
@@ -79,6 +86,22 @@ namespace Treasury.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View();
+        }
+
+
+        public IActionResult Account()
+        {
+            ViewData["Message"] = "Add Bank accounts.";
+            AccountModel model = new AccountModel();
+
+            List<AccountTypes> types = new List<AccountTypes>();
+            types.Add(AccountTypes.Investment);
+            types.Add(AccountTypes.Checking);
+            types.Add(AccountTypes.Credit);
+            types.Add(AccountTypes.Savings);
+            types.Add(AccountTypes.Cash);
+            model.AccountTypes = types;
+            return View(model);
         }
 
         public IActionResult Budget()
