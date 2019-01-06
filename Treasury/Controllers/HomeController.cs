@@ -8,6 +8,7 @@ using Treasury.Models;
 using Treasury.Data;
 using Treasury.Business.Models;
 using Treasury.Business.Logic;
+using Treasury.Data.Models;
 
 namespace Treasury.Controllers
 {
@@ -50,8 +51,11 @@ namespace Treasury.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddBudget(double amount, string name, int order, bool necessary, string type, string month)
+        public ActionResult AddBudget(decimal amount, string name, int order, bool necessary, string type, string month, int cofferId)
         {
+
+            BudgetService budgetService = new BudgetService();
+            budgetService.SetUpBudgets(amount, name, order, necessary, type, month, cofferId);
             return null;
         }
 
@@ -80,8 +84,12 @@ namespace Treasury.Controllers
         {
             BudgetService budgetService = new BudgetService();
             ViewData["Message"] = "Set up them budgets here";
-            ViewData["Coffers"] = budgetService.GetCoffers();
-            return View();
+
+            BudgetModel model = new BudgetModel();
+            model.Coffers = budgetService.GetCoffers();
+
+
+            return View(model);
         }
 
         public IActionResult Coffer()

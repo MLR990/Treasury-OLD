@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Treasury.Models.BudgetModel
+
+@{
     ViewData["Title"] = "Budgets";
 }
 <h2>@ViewData["Title"]</h2>
@@ -11,6 +13,8 @@
 Name: <input type="text" id="budgetName" /><br /><br />
 Amount: <input type="text" id="budgetAmount" /><br /><br />
 Order: <input type="text" id="budgetOrder" /><br /><br />
+
+Coffer: @Html.DropDownListFor(model => model.CofferId, new SelectList(Model.Coffers, "Id", "Name"))<br /><br />
 Necessary: <input type="checkbox" id="budgetNecessary" value="true" name="necessary" /><br /><br />
 Budget Type:
 <select id="budgetType">

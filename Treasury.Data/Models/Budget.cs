@@ -25,14 +25,14 @@ namespace Treasury.Data.Models
         [Column("AMOUNTSPENT")]
         public double AmountSpent { get; set; }
 
-        [Column("CLOSED")]
-        public bool Closed { get; set; }
+        [Column("CLOSED", TypeName = "bit")]
+        public Boolean Closed { get; set; }
 
         [Column("ORDER")]
         public int Order { get; set; }
 
-        [Column("NECESSARY")]
-        public bool Necessary { get; set; }
+        [Column("NECESSARY", TypeName = "bit")]
+        public Boolean Necessary { get; set; }
 
         [Column("MONTH")]
         public Month Month { get; set; }
@@ -53,7 +53,7 @@ namespace Treasury.Data.Models
 
     public enum Month
     {
-        January,
+        January = 1,
         Febuary,
         March,
         April,

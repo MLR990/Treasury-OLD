@@ -21,8 +21,8 @@
         var necessary =  $("#budgetNecessary").prop('checked');
         var type = $('#budgetType').val();
         var month = $('#budgetMonth').val();
-
-        $.post('AddBudget', {name: name, amount: amount, order: order, necessary: necessary, type: type, month: month});
+        var coffer = $('#CofferId').val();
+        $.post('AddBudget', {name: name, amount: amount, order: order, necessary: necessary, type: type, month: month, cofferId: coffer});
     });
 
     $('#addCoffer').on('click', function(){
