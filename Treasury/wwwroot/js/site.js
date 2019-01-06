@@ -14,19 +14,22 @@
         $.post('AddVendor', {vendorName: name});
     });
 
-    $('#addBudget').on('click', function(){
-        var name = $('#budgetName').val();
-        var amount = $('#budgetAmount').val();
-        var order = $('#budgetOrder').val();
-        var necessary =  $("#budgetNecessary").prop('checked');
-        var type = $('#budgetType').val();
-        var month = $('#budgetMonth').val();
-        var coffer = $('#CofferId').val();
-        $.post('AddBudget', {name: name, amount: amount, order: order, necessary: necessary, type: type, month: month, cofferId: coffer});
-    });
-
     $('#addCoffer').on('click', function(){
         var name = $('#cofferName').val();
-        var description = $('#cofferDescription').val();
-        $.post('AddCoffer', {name: name, description: description});
+        var amount = $('#cofferAmount').val();
+        var order = $('#cofferOrder').val();
+        var necessary =  $("#cofferNecessary").prop('checked');
+
+        var desc =  $("#cofferDescription").val();
+
+        var type = $('#cofferType').val();
+        var month = $('#cofferMonth').val();
+        var budgetId = $('#BudgetId').val();
+        $.post('AddCoffer', {name: name, amount: amount, order: order, necessary: necessary, type: type, month: month, budgetId: budgetId, description: desc});
+    });
+
+    $('#addBudget').on('click', function(){
+        var name = $('#budgetName').val();
+        var description = $('#budgetDescription').val();
+        $.post('AddBudget', {name: name, description: description});
     });

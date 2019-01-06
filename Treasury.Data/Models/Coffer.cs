@@ -32,7 +32,43 @@ namespace Treasury.Data.Models
         [Column("AMOUNTSPENT")]
         public double AmountSpent { get; set; }
 
+        [Column("NECESSARY", TypeName = "bit")]
+        public Boolean Necessary { get; set; }
+
         [Column("CLOSED", TypeName = "bit")]
         public Boolean Closed { get; set; }
+
+        [Column("ORDER")]
+        public int Order { get; set; }
+
+        [Column("TYPE")]
+        public BudgetType Type { get; set; }
+
+        [Column("BUDGETID")]
+        public int BudgetId { get; set; }
+    }
+
+
+    public enum BudgetType
+    {
+        Monthly,
+        OneTime,
+        Annual
+    }
+
+    public enum Month
+    {
+        January = 1,
+        Febuary,
+        March,
+        April,
+        May,
+        June,
+        July,
+        August,
+        September,
+        October,
+        November,
+        December
     }
 }
