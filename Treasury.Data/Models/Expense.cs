@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Treasury.Data.Models
 {
-    [Table("BUDGET")]
-    public class Budget
+    [Table("EXPENSE")]
+    public class Expense
     {
         [Column("ID")]
         [Key]

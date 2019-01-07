@@ -7,6 +7,6 @@ namespace Treasury.Models
     public class CofferModel
     {
         public int BudgetId { get; set; }
-        public IEnumerable<Budget> Budgets { get; set; }
+        public IEnumerable<Expense> Budgets { get; set; }
     }
 }

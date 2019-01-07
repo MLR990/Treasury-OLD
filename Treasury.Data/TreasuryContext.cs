@@ -14,10 +14,10 @@ namespace Treasury.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Budget> Budgets { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
         public DbSet<Income> Income { get; set; }
-        public DbSet<MonthlyCoffer> MonthlyCoffers { get; set; }
         public DbSet<Coffer> Coffers { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
     }
 
 

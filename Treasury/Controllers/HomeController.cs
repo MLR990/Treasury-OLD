@@ -46,7 +46,7 @@ namespace Treasury.Controllers
         public ActionResult AddCoffer(string name, decimal amount, int order, bool necessary, string type, string month, int budgetId, string description)
         {
             BudgetService budgetService = new BudgetService();
-            budgetService.SetUpCoffers(amount, name, order, necessary, type, month, budgetId, description);
+            budgetService.SetUpBudgets(amount, name, order, necessary, type, month, budgetId, description);
 
             return null;
         }
@@ -56,7 +56,7 @@ namespace Treasury.Controllers
         {
 
             BudgetService budgetService = new BudgetService();
-            budgetService.AddBudget(name, description);
+            budgetService.AddExpense(name, description);
             return null;
         }
 
@@ -122,7 +122,7 @@ namespace Treasury.Controllers
             ViewData["Message"] = "Set up the coffers";
             CofferModel model = new CofferModel();
 
-            model.Budgets = budgetService.GetBudgets();
+            model.Budgets = budgetService.GetExpenses();
             return View(model);
         }
 

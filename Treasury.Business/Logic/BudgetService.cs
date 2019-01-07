@@ -11,38 +11,38 @@ namespace Treasury.Business.Logic
         public BudgetService()
         {
         }
-        public IEnumerable<MonthlyCoffer> GetCoffers()
+        public IEnumerable<Coffer> GetCoffers()
         {
             using (TreasuryContext db = new TreasuryContext())
             {
-                return db.MonthlyCoffers.Select(x => x).ToList();
+                return db.Coffers.Select(x => x).ToList();
             }
         }
 
-        public IEnumerable<Budget> GetBudgets()
+        public IEnumerable<Expense> GetExpenses()
         {
             using (TreasuryContext db = new TreasuryContext())
             {
-                return db.Budgets.Select(x => x).ToList();
+                return db.Expenses.Select(x => x).ToList();
             }
         }
-        public void AddBudget(string name, string description)
+        public void AddExpense(string name, string description)
         {
             using (TreasuryContext db = new TreasuryContext())
             {
-                db.Budgets.Add(new Data.Models.Budget { Name = name, Description = description });
+                db.Expenses.Add(new Data.Models.Expense { Name = name, Description = description });
                 db.SaveChanges();
             }
         }
-        public void SetUpCoffers(decimal amount, string name, int order, bool necessary, string type, string month, int budgetId, string description)
+        public void SetUpBudgets(decimal amount, string name, int order, bool necessary, string type, string month, int budgetId, string description)
         {
             try
             {
                 using (TreasuryContext db = new TreasuryContext())
                 {
-                    db.Coffers.Add(new Data.Models.Coffer { Amount = double.Parse(amount.ToString()), Month = GetMonth(GetMonthInt(month)), Name = name, Order = order, BudgetId = budgetId, Description = description, Necessary = necessary });
+                    db.Budgets.Add(new Data.Models.Budget { Amount = double.Parse(amount.ToString()), Month = GetMonth(GetMonthInt(month)), Name = name, Order = order, ExpenseId = budgetId, Description = description, Necessary = necessary });
                     db.SaveChanges();
-                    var cofferId = db.Coffers.Where(x => x.BudgetId == budgetId && x.Name == name).FirstOrDefault().Id;
+                    var cofferId = db.Budgets.Where(x => x.ExpenseId == budgetId && x.Name == name).FirstOrDefault().Id;
                     SetUpMonthlyCoffers(amount, name, order, type, month, cofferId);
                 }
             }
@@ -59,7 +59,7 @@ namespace Treasury.Business.Logic
                 int currentMonth = DateTime.Now.Month;
                 for (int i = currentMonth; i <= 12; i++)
                 {
-                    AddMonthlyCoffer(amount, i, name, order, cofferId);
+                    AddCoffer(amount, i, name, order, cofferId);
                 }
             }
             else
@@ -77,7 +77,7 @@ namespace Treasury.Business.Logic
 
                     for (int i = currentMonth; i <= expenseMonth; i++)
                     {
-                        AddMonthlyCoffer(Math.Round(monthlyAmount, 2), i, name, order, cofferId);
+                        AddCoffer(Math.Round(monthlyAmount, 2), i, name, order, cofferId);
                     }
                 }
                 else
@@ -88,20 +88,20 @@ namespace Treasury.Business.Logic
 
                     for (int i = currentMonth; i <= 12; i++)
                     {
-                        AddMonthlyCoffer(Math.Round(monthlyAmount, 2), i, name, order, cofferId);
+                        AddCoffer(Math.Round(monthlyAmount, 2), i, name, order, cofferId);
                     }
 
                 }
             }
         }
 
-        public void AddMonthlyCoffer(decimal amount, int month, string name, int order, int cofferId)
+        public void AddCoffer(decimal amount, int month, string name, int order, int cofferId)
         {
             try
             {
                 using (TreasuryContext db = new TreasuryContext())
                 {
-                    db.MonthlyCoffers.Add(new Data.Models.MonthlyCoffer { Amount = double.Parse(amount.ToString()), Month = month, Name = name, Order = order, CofferId = cofferId });
+                    db.Coffers.Add(new Data.Models.Coffer { Amount = double.Parse(amount.ToString()), Month = month, Name = name, Order = order, BudgetId = cofferId });
                     db.SaveChanges();
                 }
             }

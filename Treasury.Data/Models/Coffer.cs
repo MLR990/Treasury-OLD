@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Treasury.Data.Models
 {
-    [Table("MONTHLYCOFFER")]
-    public class MonthlyCoffer
+    [Table("COFFER")]
+    public class Coffer
     {
         [Column("ID")]
         [Key]
@@ -34,8 +34,8 @@ namespace Treasury.Data.Models
         [Column("ORDER")]
         public int Order { get; set; }
 
-        [Column("COFFERID")]
-        public int CofferId { get; set; }
+        [Column("BUDGETID")]
+        public int BudgetId { get; set; }
 
 
     }
