@@ -13,7 +13,7 @@ namespace Treasury.Models
         public IEnumerable<BudgetType> Types { get; set; }
         public IEnumerable<Month> Months { get; set; }
         public int CofferId { get; set; }
-        public IEnumerable<Coffer> Coffers { get; set; }
+        public IEnumerable<MonthlyCoffer> Coffers { get; set; }
         public IEnumerable<Vendor> Vendors { get; set; }
     }
 }

@@ -11,11 +11,11 @@ namespace Treasury.Business.Logic
         public BudgetService()
         {
         }
-        public IEnumerable<Coffer> GetCoffers()
+        public IEnumerable<MonthlyCoffer> GetCoffers()
         {
             using (TreasuryContext db = new TreasuryContext())
             {
-                return db.Coffers.Select(x => x).ToList();
+                return db.MonthlyCoffers.Select(x => x).ToList();
             }
         }
 
@@ -34,15 +34,32 @@ namespace Treasury.Business.Logic
                 db.SaveChanges();
             }
         }
-
         public void SetUpCoffers(decimal amount, string name, int order, bool necessary, string type, string month, int budgetId, string description)
+        {
+            try
+            {
+                using (TreasuryContext db = new TreasuryContext())
+                {
+                    db.Coffers.Add(new Data.Models.Coffer { Amount = double.Parse(amount.ToString()), Month = GetMonth(GetMonthInt(month)), Name = name, Order = order, BudgetId = budgetId, Description = description, Necessary = necessary });
+                    db.SaveChanges();
+                    var cofferId = db.Coffers.Where(x => x.BudgetId == budgetId && x.Name == name).FirstOrDefault().Id;
+                    SetUpMonthlyCoffers(amount, name, order, type, month, cofferId);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void SetUpMonthlyCoffers(decimal amount, string name, int order, string type, string month, int cofferId)
         {
             if (type == "Monthly")
             {
                 int currentMonth = DateTime.Now.Month;
                 for (int i = currentMonth; i <= 12; i++)
                 {
-                    AddCoffer(amount, i, name, necessary, order, BudgetType.Monthly, budgetId, description);
+                    AddMonthlyCoffer(amount, i, name, order, cofferId);
                 }
             }
             else
@@ -60,7 +77,7 @@ namespace Treasury.Business.Logic
 
                     for (int i = currentMonth; i <= expenseMonth; i++)
                     {
-                        AddCoffer(Math.Round(monthlyAmount, 2), i, name, necessary, order, BudgetType.OneTime, budgetId, description);
+                        AddMonthlyCoffer(Math.Round(monthlyAmount, 2), i, name, order, cofferId);
                     }
                 }
                 else
@@ -71,20 +88,20 @@ namespace Treasury.Business.Logic
 
                     for (int i = currentMonth; i <= 12; i++)
                     {
-                        AddCoffer(Math.Round(monthlyAmount, 2), i, name, necessary, order, BudgetType.Annual, budgetId, description);
+                        AddMonthlyCoffer(Math.Round(monthlyAmount, 2), i, name, order, cofferId);
                     }
 
                 }
             }
         }
 
-        public void AddCoffer(decimal amount, int month, string name, bool necessary, int order, BudgetType type, int budgetId, string description)
+        public void AddMonthlyCoffer(decimal amount, int month, string name, int order, int cofferId)
         {
             try
             {
                 using (TreasuryContext db = new TreasuryContext())
                 {
-                    db.Coffers.Add(new Data.Models.Coffer { Amount = double.Parse(amount.ToString()), Month = GetMonth(month), Necessary = necessary, Name = name, Order = order, BudgetId = budgetId, Description = description, Type = type });
+                    db.MonthlyCoffers.Add(new Data.Models.MonthlyCoffer { Amount = double.Parse(amount.ToString()), Month = month, Name = name, Order = order, CofferId = cofferId });
                     db.SaveChanges();
                 }
             }

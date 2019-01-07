@@ -4,24 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Treasury.Data.Models
 {
-    [Table("COFFER")]
-    public class Coffer
+    [Table("MONTHLYCOFFER")]
+    public class MonthlyCoffer
     {
         [Column("ID")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Column("MONTH")]
+        public int Month { get; set; }
+
         [MaxLength(100)]
         [Column("NAME")]
         public string Name { get; set; }
-
-        [MaxLength(1000)]
-        [Column("DESCRIPTION")]
-        public string Description { get; set; }
-
-        [Column("MONTH")]
-        public Month Month { get; set; }
 
         [Column("AMOUNT")]
         public double Amount { get; set; }
@@ -32,20 +28,16 @@ namespace Treasury.Data.Models
         [Column("AMOUNTSPENT")]
         public double AmountSpent { get; set; }
 
-        [Column("NECESSARY", TypeName = "bit")]
-        public Boolean Necessary { get; set; }
-
         [Column("CLOSED", TypeName = "bit")]
         public Boolean Closed { get; set; }
 
         [Column("ORDER")]
         public int Order { get; set; }
 
-        [Column("TYPE")]
-        public BudgetType Type { get; set; }
+        [Column("COFFERID")]
+        public int CofferId { get; set; }
 
-        [Column("BUDGETID")]
-        public int BudgetId { get; set; }
+
     }
 
 

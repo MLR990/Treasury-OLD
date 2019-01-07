@@ -16,6 +16,7 @@ namespace Treasury.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<Income> Income { get; set; }
+        public DbSet<MonthlyCoffer> MonthlyCoffers { get; set; }
         public DbSet<Coffer> Coffers { get; set; }
     }
 

@@ -10,4 +10,7 @@
     <ItemGroup>
       <Folder Include="Models\" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Models\DailyLog.cs" />
+    </ItemGroup>
 </Project>
