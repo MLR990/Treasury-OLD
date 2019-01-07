@@ -14,18 +14,18 @@
         $.post('AddVendor', {vendorName: name});
     });
 
-    $('#addCoffer').on('click', function(){
-        var name = $('#cofferName').val();
-        var amount = $('#cofferAmount').val();
-        var order = $('#cofferOrder').val();
-        var necessary =  $("#cofferNecessary").prop('checked');
+    $('#addBudget').on('click', function(){
+        var name = $('#budgetName').val();
+        var amount = $('#budgetAmount').val();
+        var order = $('#budgetOrder').val();
+        var necessary =  $("#budgetNecessary").prop('checked');
 
-        var desc =  $("#cofferDescription").val();
+        var desc =  $("#budgetDescription").val();
 
-        var type = $('#cofferType').val();
-        var month = $('#cofferMonth').val();
-        var budgetId = $('#BudgetId').val();
-        $.post('AddCoffer', {name: name, amount: amount, order: order, necessary: necessary, type: type, month: month, budgetId: budgetId, description: desc});
+        var type = $('#budgetType').val();
+        var month = $('#budgetMonth').val();
+        var expenseId = $('#ExpenseId').val();
+        $.post('AddBudget', {name: name, amount: amount, order: order, necessary: necessary, type: type, month: month, expenseId: expenseId, description: desc});
     });
 
     $('#addExpense').on('click', function(){
