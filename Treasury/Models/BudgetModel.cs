@@ -4,7 +4,7 @@ using Treasury.Data.Models;
 
 namespace Treasury.Models
 {
-    public class BudgetModel
+    public class ExpenseModel
     {
         public string Name { get; set; }
         public double Amount { get; set; }

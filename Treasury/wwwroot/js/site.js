@@ -28,10 +28,10 @@
         $.post('AddCoffer', {name: name, amount: amount, order: order, necessary: necessary, type: type, month: month, budgetId: budgetId, description: desc});
     });
 
-    $('#addBudget').on('click', function(){
-        var name = $('#budgetName').val();
-        var description = $('#budgetDescription').val();
-        $.post('AddBudget', {name: name, description: description});
+    $('#addExpense').on('click', function(){
+        var name = $('#expenseName').val();
+        var description = $('#expenseDescription').val();
+        $.post('AddExpense', {name: name, description: description});
     });
 
     $('#addAccount').on('click', function(){

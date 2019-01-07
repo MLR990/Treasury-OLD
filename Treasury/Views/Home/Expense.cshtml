@@ -1,0 +1,15 @@
+﻿@model Treasury.Models.ExpenseModel
+
+@{
+    ViewData["Title"] = "Expenses";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+<head>
+
+</head>
+
+<p>Use this area to provide additional information.</p>
+Name: <input type="text" id="expenseName" /><br /><br />
+Description:  <input type="text" id="expenseDescription" /><br /><br />
+<input type="button" id="addExpense" value="Add Expense" />

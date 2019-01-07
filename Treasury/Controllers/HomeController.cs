@@ -52,7 +52,7 @@ namespace Treasury.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddBudget(string name, string description)
+        public ActionResult AddExpense(string name, string description)
         {
 
             BudgetService budgetService = new BudgetService();
@@ -104,15 +104,10 @@ namespace Treasury.Controllers
             return View(model);
         }
 
-        public IActionResult Budget()
+        public IActionResult Expense()
         {
-            BudgetService budgetService = new BudgetService();
-            ViewData["Message"] = "Set up them budgets here";
-
-            BudgetModel model = new BudgetModel();
-
-
-
+            ViewData["Message"] = "Set up the expenses here";
+            ExpenseModel model = new ExpenseModel();
             return View(model);
         }
 
