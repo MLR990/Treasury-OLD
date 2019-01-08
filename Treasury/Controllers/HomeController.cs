@@ -20,9 +20,9 @@ namespace Treasury.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTransaction(double amount, string description)
+        public ActionResult AddTransaction(double amount, string description, int vendorId)
         {
-            TransactionModel model = new TransactionModel { Amount = amount, Description = description };
+            Business.Models.TransactionModel model = new Business.Models.TransactionModel { Amount = amount, Description = description, VendorId = vendorId };
 
             TransactionService service = new TransactionService();
 
@@ -70,20 +70,15 @@ namespace Treasury.Controllers
         public IActionResult Transactions()
         {
             ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
-
-            return View();
+            Models.TransactionModel model = new Models.TransactionModel();
+            VendorService vendorService = new VendorService();
+            model.Vendors = vendorService.GetVendors();
+            return View(model);
         }
 
         public IActionResult Vendors()
         {
             ViewData["Message"] = "Add in the people who take my money";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
 
             return View();
         }

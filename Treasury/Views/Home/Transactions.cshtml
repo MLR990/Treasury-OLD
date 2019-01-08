@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Treasury.Models.TransactionModel
+
+@{
     ViewData["Title"] = "Transactions";
 }
 <h2>@ViewData["Title"]</h2>
@@ -10,4 +12,6 @@
 <p>Use this area to provide additional information.</p>
 Amount: <input type="text" id="transactionAmount" /><br /><br />
 Description: <input type="text" id="transactionDescription" /><br /><br />
+
+Vendor: @Html.DropDownListFor(model => model.VendorId, new SelectList(Model.Vendors, "Id", "Name"))<br /><br />
 <input type="button" id="addTransaction" value="Add Transaction" />

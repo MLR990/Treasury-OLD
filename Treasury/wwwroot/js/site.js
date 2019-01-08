@@ -6,7 +6,8 @@
     $('#addTransaction').on('click', function(){
         var transactionAmount = $('#transactionAmount').val();
         var desc = $('#transactionDescription').val();
-        $.post('AddTransaction', {amount: transactionAmount, description: desc});
+        var vendorId = $('#VendorId').val();
+        $.post('AddTransaction', {amount: transactionAmount, description: desc, vendorId: vendorId});
     });
 
     $('#addVendor').on('click', function(){

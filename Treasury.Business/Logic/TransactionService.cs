@@ -14,7 +14,7 @@ namespace Treasury.Business.Logic
         {
             using (TreasuryContext db = new TreasuryContext())
             {
-                db.Transactions.Add(new Data.Models.Transaction { Amount = model.Amount, Description = model.Description, TransactionDate = DateTime.UtcNow });
+                db.Transactions.Add(new Data.Models.Transaction { Amount = model.Amount, Description = model.Description, VendorId = model.VendorId, TransactionDate = DateTime.UtcNow });
                 db.SaveChanges();
             }
         }
