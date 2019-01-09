@@ -1,0 +1,17 @@
+﻿@model Treasury.Models.IncomeModel
+
+@{
+    ViewData["Title"] = "Income";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+<head>
+
+</head>
+
+<p>Use this area to provide additional information.</p>
+Amount: <input type="text" id="incomeAmount" /><br /><br />
+Description: <input type="text" id="incomeDescription" /><br /><br />
+Source: <input type="text" id="incomeSource" /><br /><br />
+Account: @Html.DropDownListFor(model => model.AccountId, new SelectList(Model.Accounts, "Id", "Name"))<br /><br />
+<input type="button" id="addIncome" value="Add Income" />

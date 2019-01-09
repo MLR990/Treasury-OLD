@@ -124,7 +124,25 @@ namespace Treasury.Controllers
 
         #endregion
 
+        #region Income
+        public IActionResult Income()
+        {
+            ViewData["Message"] = "Add the moneys";
+            IncomeModel model = new IncomeModel();
+            AccountService accountService = new AccountService();
 
+            model.Accounts = accountService.GetAccounts();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult AddIncome(double amount, string description, int accountId, string source)
+        {
+            TransactionService transactionService = new TransactionService();
+            transactionService.AddIncome(amount, description, source, accountId);
+            return null;
+        }
+        #endregion
         public IActionResult Index()
         {
             return View();

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Treasury.Data;
 using Treasury.Data.Models;
 
@@ -14,6 +16,14 @@ namespace Treasury.Business.Logic
                 db.SaveChanges();
             }
         }
+        public IEnumerable<Account> GetAccounts()
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                return db.Accounts.Select(x => x).ToList();
+            }
+        }
+
 
         private AccountTypes GetType(string type)
         {

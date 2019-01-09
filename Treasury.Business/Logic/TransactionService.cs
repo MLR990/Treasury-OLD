@@ -18,5 +18,17 @@ namespace Treasury.Business.Logic
                 db.SaveChanges();
             }
         }
+
+        public void AddIncome(double amount, string description, string source, int accountId)
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                db.Income.Add(new Data.Models.Income { Amount = amount, Description = description, AccountId = accountId, TransactionDate = DateTime.UtcNow, Source = source });
+                db.SaveChanges();
+            }
+        }
+
+
+
     }
 }

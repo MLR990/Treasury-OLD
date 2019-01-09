@@ -20,9 +20,7 @@
         var amount = $('#budgetAmount').val();
         var order = $('#budgetOrder').val();
         var necessary =  $("#budgetNecessary").prop('checked');
-
         var desc =  $("#budgetDescription").val();
-
         var type = $('#budgetType').val();
         var month = $('#budgetMonth').val();
         var expenseId = $('#ExpenseId').val();
@@ -33,6 +31,14 @@
         var name = $('#expenseName').val();
         var description = $('#expenseDescription').val();
         $.post('AddExpense', {name: name, description: description});
+    });
+
+    $('#addIncome').on('click', function(){
+        var amount = $('#incomeAmount').val();
+        var description = $('#incomeDescription').val();
+        var source = $('#incomeSource').val();
+        var accountId = $('#AccountId').val();
+        $.post('AddIncome', {amount: amount, description: description, source: source, accountId: accountId});
     });
 
     $('#addAccount').on('click', function(){
