@@ -19,6 +19,29 @@ namespace Treasury.Business.Logic
             }
         }
 
+        public void UpdateCofferFunding(int cofferId, double amountFunded)
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                var cof = db.Coffers.Where(x => x.Id == cofferId).FirstOrDefault();
+                if (cof != null)
+                {
+                    cof.AmountFunded = amountFunded;
+                    db.SaveChanges();
+                }
+
+            }
+        }
+
+        public IEnumerable<Coffer> GetCoffersForFunding(int month)
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                List<Coffer> cofferList = new List<Coffer>();
+                return db.Coffers.Where(x => x.AmountFunded < x.Amount && x.Month >= month).Select(x => x).OrderBy(x => x.Month).ThenBy(x => x.Order).ToList();
+            }
+        }
+
         public IEnumerable<Expense> GetExpenses()
         {
             using (TreasuryContext db = new TreasuryContext())

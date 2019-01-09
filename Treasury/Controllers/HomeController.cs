@@ -139,7 +139,28 @@ namespace Treasury.Controllers
         public ActionResult AddIncome(double amount, string description, int accountId, string source)
         {
             TransactionService transactionService = new TransactionService();
+            BudgetService budgetService = new BudgetService();
             transactionService.AddIncome(amount, description, source, accountId);
+            IEnumerable<Coffer> coffers = budgetService.GetCoffersForFunding(DateTime.Now.Month);
+            double fundingLeft = amount;
+            foreach (Coffer coffer in coffers)
+            {
+                double cofferBalance = coffer.Amount - coffer.AmountFunded;
+
+                if (cofferBalance <= fundingLeft)
+                {
+                    budgetService.UpdateCofferFunding(coffer.Id, coffer.Amount);
+                    fundingLeft = Math.Round(fundingLeft - cofferBalance, 2);
+
+                }
+                else
+                {
+                    double fundAmount = coffer.AmountFunded + fundingLeft;
+                    budgetService.UpdateCofferFunding(coffer.Id, fundAmount);
+                    break;
+                }
+
+            }
             return null;
         }
         #endregion
