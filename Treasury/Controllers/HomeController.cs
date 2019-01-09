@@ -14,9 +14,15 @@ namespace Treasury.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        #region Transactions
+
+        public IActionResult Transactions()
         {
-            return View();
+            ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
+            Models.TransactionModel model = new Models.TransactionModel();
+            VendorService vendorService = new VendorService();
+            model.Vendors = vendorService.GetVendors();
+            return View(model);
         }
 
         [HttpPost]
@@ -31,6 +37,16 @@ namespace Treasury.Controllers
             return null;
         }
 
+        #endregion
+
+        #region Vendors
+        public IActionResult Vendors()
+        {
+            ViewData["Message"] = "Add in the people who take my money";
+
+            return View();
+        }
+
         [HttpPost]
         public ActionResult AddVendor(string vendorName)
         {
@@ -41,6 +57,18 @@ namespace Treasury.Controllers
 
             return null;
         }
+        #endregion
+
+        #region Budget
+        public IActionResult Budget()
+        {
+            BudgetService budgetService = new BudgetService();
+            ViewData["Message"] = "Set up the budget";
+            BudgetModel model = new BudgetModel();
+
+            model.Expenses = budgetService.GetExpenses();
+            return View(model);
+        }
 
         [HttpPost]
         public ActionResult AddBudget(string name, decimal amount, int order, bool necessary, string type, string month, int expenseId, string description)
@@ -49,6 +77,15 @@ namespace Treasury.Controllers
             budgetService.SetUpBudgets(amount, name, order, necessary, type, month, expenseId, description);
 
             return null;
+        }
+        #endregion
+
+        #region Expense
+        public IActionResult Expense()
+        {
+            ViewData["Message"] = "Set up the expenses here";
+            ExpenseModel model = new ExpenseModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -59,31 +96,9 @@ namespace Treasury.Controllers
             budgetService.AddExpense(name, description);
             return null;
         }
+        #endregion
 
-        [HttpPost]
-        public ActionResult AddAccount(string name, double balance, string type)
-        {
-            AccountService accountService = new AccountService();
-            accountService.AddAccount(name, type, balance);
-            return null;
-        }
-        public IActionResult Transactions()
-        {
-            ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
-            Models.TransactionModel model = new Models.TransactionModel();
-            VendorService vendorService = new VendorService();
-            model.Vendors = vendorService.GetVendors();
-            return View(model);
-        }
-
-        public IActionResult Vendors()
-        {
-            ViewData["Message"] = "Add in the people who take my money";
-
-            return View();
-        }
-
-
+        #region Account
         public IActionResult Account()
         {
             ViewData["Message"] = "Add Bank accounts.";
@@ -99,23 +114,21 @@ namespace Treasury.Controllers
             return View(model);
         }
 
-        public IActionResult Expense()
+        [HttpPost]
+        public ActionResult AddAccount(string name, double balance, string type)
         {
-            ViewData["Message"] = "Set up the expenses here";
-            ExpenseModel model = new ExpenseModel();
-            return View(model);
+            AccountService accountService = new AccountService();
+            accountService.AddAccount(name, type, balance);
+            return null;
         }
 
-        public IActionResult Budget()
+        #endregion
+
+
+        public IActionResult Index()
         {
-            BudgetService budgetService = new BudgetService();
-            ViewData["Message"] = "Set up the budget";
-            BudgetModel model = new BudgetModel();
-
-            model.Expenses = budgetService.GetExpenses();
-            return View(model);
+            return View();
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
