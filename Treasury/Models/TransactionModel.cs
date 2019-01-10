@@ -10,5 +10,7 @@ namespace Treasury.Models
         public IEnumerable<Account> Accounts { get; set; }
         public int VendorId { get; set; }
         public IEnumerable<Vendor> Vendors { get; set; }
+        public int CofferId { get; set; }
+        public IEnumerable<Coffer> Coffers { get; set; }
     }
 }

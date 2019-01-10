@@ -14,4 +14,6 @@ Amount: <input type="text" id="transactionAmount" /><br /><br />
 Description: <input type="text" id="transactionDescription" /><br /><br />
 
 Vendor: @Html.DropDownListFor(model => model.VendorId, new SelectList(Model.Vendors, "Id", "Name"))<br /><br />
+Account: @Html.DropDownListFor(model => model.AccountId, new SelectList(Model.Accounts, "Id", "Name"))<br /><br />
+Coffer: @Html.DropDownListFor(model => model.CofferId, new SelectList(Model.Coffers, "Id", "Name"))<br /><br />
 <input type="button" id="addTransaction" value="Add Transaction" />

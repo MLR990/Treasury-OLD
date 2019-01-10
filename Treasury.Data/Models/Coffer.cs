@@ -37,6 +37,9 @@ namespace Treasury.Data.Models
         [Column("BUDGETID")]
         public int BudgetId { get; set; }
 
+        [Column("NECESSARY", TypeName = "bit")]
+        public Boolean Necessary { get; set; }
+
 
     }
 

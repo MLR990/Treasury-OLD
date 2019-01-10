@@ -24,6 +24,29 @@ namespace Treasury.Business.Logic
             }
         }
 
+        public void UpdateAccountBalance(int accountId, double amount)
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                var account = db.Accounts.Where(a => a.Id == accountId).FirstOrDefault();
+                if (account != null)
+                {
+                    account.Balance = account.Balance - amount;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public IEnumerable<Account> GetAccountsForTransactions()
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                return db.Accounts.Where(x => x.Type == AccountTypes.Cash || x.Type == AccountTypes.Checking || x.Type == AccountTypes.Credit).Select(x => x).ToList();
+            }
+        }
+
+
+
 
         private AccountTypes GetType(string type)
         {

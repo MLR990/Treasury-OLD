@@ -25,5 +25,11 @@ namespace Treasury.Data.Models
         [Column("VENDORID")]
         public int VendorId { get; set; }
 
+        [Column("COFFERID")]
+        public int CofferId { get; set; }
+
+        [Column("ACCOUNTID")]
+        public int AccountId { get; set; }
+
     }
 }

@@ -7,7 +7,9 @@
         var transactionAmount = $('#transactionAmount').val();
         var desc = $('#transactionDescription').val();
         var vendorId = $('#VendorId').val();
-        $.post('AddTransaction', {amount: transactionAmount, description: desc, vendorId: vendorId});
+        var cofferId = $('#CofferId').val();
+        var accountId = $('#AccountId').val();
+        $.post('AddTransaction', {amount: transactionAmount, description: desc, vendorId: vendorId, cofferId: cofferId, accountId: accountId});
     });
 
     $('#addVendor').on('click', function(){

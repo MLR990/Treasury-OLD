@@ -21,18 +21,25 @@ namespace Treasury.Controllers
             ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
             Models.TransactionModel model = new Models.TransactionModel();
             VendorService vendorService = new VendorService();
+            CofferService cofferService = new CofferService();
+            AccountService accountService = new AccountService();
             model.Vendors = vendorService.GetVendors();
+            model.Coffers = cofferService.GetMonthlyCoffers(DateTime.UtcNow.Month);
+            model.Accounts = accountService.GetAccountsForTransactions();
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult AddTransaction(double amount, string description, int vendorId)
+        public ActionResult AddTransaction(double amount, string description, int vendorId, int cofferId, int accountId)
         {
-            Business.Models.TransactionModel model = new Business.Models.TransactionModel { Amount = amount, Description = description, VendorId = vendorId };
+            Business.Models.TransactionModel model = new Business.Models.TransactionModel { Amount = amount, Description = description, VendorId = vendorId, CofferId = cofferId, AccountId = accountId };
 
             TransactionService service = new TransactionService();
+            AccountService accountService = new AccountService();
 
             service.AddTransaction(model);
+            service.ApplySpendingToCoffer(model.CofferId, model.Amount);
+            accountService.UpdateAccountBalance(model.AccountId, model.Amount);
 
             return null;
         }
