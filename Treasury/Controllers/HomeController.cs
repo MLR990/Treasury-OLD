@@ -14,15 +14,19 @@ namespace Treasury.Controllers
 {
     public class HomeController : Controller
     {
+        AccountService accountService = new AccountService();
+        BudgetService budgetService = new BudgetService();
+        TransactionService transactionService = new TransactionService();
+        VendorService vendorService = new VendorService();
+        CofferService cofferService = new CofferService();
         #region Transactions
 
         public IActionResult Transactions()
         {
             ViewData["Message"] = "This will be where all of the transactions are added, viewed and modified";
             Models.TransactionModel model = new Models.TransactionModel();
-            VendorService vendorService = new VendorService();
-            CofferService cofferService = new CofferService();
-            AccountService accountService = new AccountService();
+
+
             model.Vendors = vendorService.GetVendors();
             model.Coffers = cofferService.GetMonthlyCoffers(DateTime.UtcNow.Month);
             model.Accounts = accountService.GetAccountsForTransactions();
@@ -34,11 +38,8 @@ namespace Treasury.Controllers
         {
             Business.Models.TransactionModel model = new Business.Models.TransactionModel { Amount = amount, Description = description, VendorId = vendorId, CofferId = cofferId, AccountId = accountId };
 
-            TransactionService service = new TransactionService();
-            AccountService accountService = new AccountService();
-
-            service.AddTransaction(model);
-            service.ApplySpendingToCoffer(model.CofferId, model.Amount);
+            transactionService.AddTransaction(model);
+            transactionService.ApplySpendingToCoffer(model.CofferId, model.Amount);
             accountService.UpdateAccountBalance(model.AccountId, model.Amount);
 
             return null;
@@ -57,10 +58,7 @@ namespace Treasury.Controllers
         [HttpPost]
         public ActionResult AddVendor(string vendorName)
         {
-
-            VendorService service = new VendorService();
-
-            service.AddVendor(vendorName);
+            vendorService.AddVendor(vendorName);
 
             return null;
         }
@@ -69,7 +67,7 @@ namespace Treasury.Controllers
         #region Budget
         public IActionResult Budget()
         {
-            BudgetService budgetService = new BudgetService();
+
             ViewData["Message"] = "Set up the budget";
             BudgetModel model = new BudgetModel();
 
@@ -80,7 +78,6 @@ namespace Treasury.Controllers
         [HttpPost]
         public ActionResult AddBudget(string name, decimal amount, int order, bool necessary, string type, string month, int expenseId, string description)
         {
-            BudgetService budgetService = new BudgetService();
             budgetService.SetUpBudgets(amount, name, order, necessary, type, month, expenseId, description);
 
             return null;
@@ -98,8 +95,6 @@ namespace Treasury.Controllers
         [HttpPost]
         public ActionResult AddExpense(string name, string description)
         {
-
-            BudgetService budgetService = new BudgetService();
             budgetService.AddExpense(name, description);
             return null;
         }
@@ -124,14 +119,13 @@ namespace Treasury.Controllers
         [HttpPost]
         public ActionResult AddAccount(string name, double balance, string type)
         {
-            AccountService accountService = new AccountService();
+
             accountService.AddAccount(name, type, balance);
             return null;
         }
 
         public ActionResult ResetFunding()
         {
-            BudgetService budgetService = new BudgetService();
             budgetService.ResetFunding();
             return null;
         }
@@ -143,7 +137,6 @@ namespace Treasury.Controllers
         {
             ViewData["Message"] = "Add the moneys";
             IncomeModel model = new IncomeModel();
-            AccountService accountService = new AccountService();
 
             model.Accounts = accountService.GetAccounts();
             return View(model);
@@ -152,8 +145,6 @@ namespace Treasury.Controllers
         [HttpPost]
         public ActionResult AddIncome(double amount, string description, int accountId, string source)
         {
-            TransactionService transactionService = new TransactionService();
-            BudgetService budgetService = new BudgetService();
             transactionService.AddIncome(amount, description, source, accountId);
             budgetService.UpdateCoffers(amount);
             return null;

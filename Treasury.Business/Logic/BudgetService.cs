@@ -8,6 +8,8 @@ namespace Treasury.Business.Logic
 {
     public class BudgetService
     {
+        CofferService cofferService = new CofferService();
+        AccountService accountService = new AccountService();
         public BudgetService()
         {
         }
@@ -21,8 +23,7 @@ namespace Treasury.Business.Logic
 
         public void ResetFunding()
         {
-            CofferService cofferService = new CofferService();
-            AccountService accountService = new AccountService();
+
             cofferService.ResetFunding();
             double balance = accountService.GetAccounts().Where(x => x.Type == AccountTypes.Cash || x.Type == AccountTypes.Checking || x.Type == AccountTypes.Credit).Sum(x => x.Balance);
             if (balance > 0)
