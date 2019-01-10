@@ -40,3 +40,5 @@ Budget Month
 Necessary: <input type="checkbox" id="budgetNecessary" value="true" namBudgetessary" /><br /><br />
 Expenses: @Html.DropDownListFor(model => model.ExpenseId, new SelectList(Model.Expenses, "Id", "Name"))<br /><br />
 <input type="button" id="addBudget" value="Add Budget" />
+
+<input type="button" id="resetFunding" value="Reset Funding" />

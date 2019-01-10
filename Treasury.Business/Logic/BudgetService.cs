@@ -19,17 +19,41 @@ namespace Treasury.Business.Logic
             }
         }
 
-        public void UpdateCofferFunding(int cofferId, double amountFunded)
+        public void ResetFunding()
         {
-            using (TreasuryContext db = new TreasuryContext())
+            CofferService cofferService = new CofferService();
+            AccountService accountService = new AccountService();
+            cofferService.ResetFunding();
+            double balance = accountService.GetAccounts().Where(x => x.Type == AccountTypes.Cash || x.Type == AccountTypes.Checking || x.Type == AccountTypes.Credit).Sum(x => x.Balance);
+            if (balance > 0)
             {
-                var cof = db.Coffers.Where(x => x.Id == cofferId).FirstOrDefault();
-                if (cof != null)
-                {
-                    cof.AmountFunded = amountFunded;
-                    db.SaveChanges();
-                }
+                UpdateCoffers(balance);
+            }
 
+
+        }
+
+
+        public void UpdateCoffers(double amount)
+        {
+            IEnumerable<Coffer> coffers = GetCoffersForFunding(DateTime.Now.Month);
+            double fundingLeft = amount;
+            foreach (Coffer coffer in coffers)
+            {
+                double cofferBalance = coffer.Amount - coffer.AmountFunded;
+
+                if (cofferBalance <= fundingLeft)
+                {
+                    SetAmountFunded(coffer.Id, coffer.Amount);
+                    fundingLeft = Math.Round(fundingLeft - cofferBalance, 2);
+
+                }
+                else
+                {
+                    double fundAmount = coffer.AmountFunded + fundingLeft;
+                    SetAmountFunded(coffer.Id, fundAmount);
+                    break;
+                }
             }
         }
 
@@ -51,6 +75,7 @@ namespace Treasury.Business.Logic
                 return db.Expenses.Select(x => x).ToList();
             }
         }
+
         public void AddExpense(string name, string description)
         {
             using (TreasuryContext db = new TreasuryContext())
@@ -59,6 +84,7 @@ namespace Treasury.Business.Logic
                 db.SaveChanges();
             }
         }
+
         public void SetUpBudgets(decimal amount, string name, int order, bool necessary, string type, string month, int expenseId, string description)
         {
             try
@@ -132,6 +158,20 @@ namespace Treasury.Business.Logic
             }
             catch
             {
+
+            }
+        }
+
+        private void SetAmountFunded(int cofferId, double amountFunded)
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                var cof = db.Coffers.Where(x => x.Id == cofferId).FirstOrDefault();
+                if (cof != null)
+                {
+                    cof.AmountFunded = amountFunded;
+                    db.SaveChanges();
+                }
 
             }
         }

@@ -35,6 +35,11 @@
         $.post('AddExpense', {name: name, description: description});
     });
 
+    $('#resetFunding').on('click', function(){
+
+        $.post('ResetFunding');
+    });
+
     $('#addIncome').on('click', function(){
         var amount = $('#incomeAmount').val();
         var description = $('#incomeDescription').val();
