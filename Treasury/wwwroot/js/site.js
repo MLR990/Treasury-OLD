@@ -48,6 +48,13 @@
         $.post('AddIncome', {amount: amount, description: description, source: source, accountId: accountId});
     });
 
+    $('#addTransfer').on('click', function(){
+        var transferFrom = $('#AccountFromId').val();
+        var transferTo = $('#AccountToId').val();
+        var transferAmount = $('#transferAmount').val();
+        $.post('AddTransfer', {transferFrom: transferFrom, transferTo: transferTo, transferAmount: transferAmount});
+    });
+
     $('#addAccount').on('click', function(){
         var name = $('#accountName').val();
         var balance = $('#accountBalance').val();

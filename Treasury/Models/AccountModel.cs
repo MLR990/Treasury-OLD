@@ -10,5 +10,9 @@ namespace Treasury.Models
         public string AccountType { get; set; }
         public double Balance { get; set; }
         public string Name { get; set; }
+
+        public IEnumerable<Account> Accounts { get; set; }
+        public int AccountFromId { get; set; }
+        public int AccountToId { get; set; }
     }
 }

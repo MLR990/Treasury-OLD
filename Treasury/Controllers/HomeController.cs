@@ -113,6 +113,8 @@ namespace Treasury.Controllers
             types.Add(AccountTypes.Savings);
             types.Add(AccountTypes.Cash);
             model.AccountTypes = types;
+
+            model.Accounts = accountService.GetAccounts();
             return View(model);
         }
 
@@ -121,6 +123,13 @@ namespace Treasury.Controllers
         {
 
             accountService.AddAccount(name, type, balance);
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult AddTransfer(int transferFrom, int transferTo, double transferAmount)
+        {
+            accountService.TransferMoney(transferFrom, transferTo, transferAmount);
             return null;
         }
 

@@ -37,6 +37,22 @@ namespace Treasury.Business.Logic
             }
         }
 
+        public void TransferMoney(int transferFrom, int transferTo, double amount)
+        {
+            using (TreasuryContext db = new TreasuryContext())
+            {
+                var accountFrom = db.Accounts.Where(a => a.Id == transferFrom).FirstOrDefault();
+                accountFrom.Balance = accountFrom.Balance - amount;
+
+                var accountTo = db.Accounts.Where(a => a.Id == transferTo).FirstOrDefault();
+                accountTo.Balance = accountTo.Balance + amount;
+
+
+                db.SaveChanges();
+
+            }
+        }
+
         public IEnumerable<Account> GetAccountsForTransactions()
         {
             using (TreasuryContext db = new TreasuryContext())

@@ -14,3 +14,10 @@ Name: <input type="text" id="accountName" /><br /><br />
 Balance:  <input type="text" id="accountBalance" /><br /><br />
 Type:  @Html.DropDownListFor(model => model.AccountType, new SelectList(Model.AccountTypes))<br /><br />
 <input type="button" id="addAccount" value="Add Account" />
+<br />
+<br />
+
+Transfer Amount: <input type="text" id="transferAmount" /><br /><br />
+Transfer From:  @Html.DropDownListFor(model => model.AccountFromId, new SelectList(Model.Accounts, "Id", "Name"))<br /><br />
+Transfer To:  @Html.DropDownListFor(model => model.AccountToId, new SelectList(Model.Accounts, "Id", "Name"))<br /><br />
+<input type="button" id="addTransfer" value="Transfer" />

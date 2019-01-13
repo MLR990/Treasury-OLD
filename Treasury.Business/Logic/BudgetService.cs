@@ -63,8 +63,10 @@ namespace Treasury.Business.Logic
             using (TreasuryContext db = new TreasuryContext())
             {
                 List<Coffer> cofferList = new List<Coffer>();
-                cofferList.AddRange(db.Coffers.Where(x => x.AmountFunded < x.Amount && x.Month >= month && x.Month < month + 4 && x.Necessary).Select(x => x).OrderBy(x => x.Month).ThenBy(x => x.Order));
-                cofferList.AddRange(db.Coffers.Where(x => x.AmountFunded < x.Amount && x.Month >= month && x.Month < month + 4 && !x.Necessary).Select(x => x).OrderBy(x => x.Month).ThenBy(x => x.Order));
+                cofferList.AddRange(db.Coffers.Where(x => x.AmountFunded < x.Amount && x.Month == month && x.Necessary).Select(x => x).OrderBy(x => x.Order));
+                cofferList.AddRange(db.Coffers.Where(x => x.AmountFunded < x.Amount && x.Month == month && !x.Necessary).Select(x => x).OrderBy(x => x.Order));
+                cofferList.AddRange(db.Coffers.Where(x => x.AmountFunded < x.Amount && x.Month > month && x.Month < month + 5 && x.Necessary).Select(x => x).OrderBy(x => x.Month).ThenBy(x => x.Order));
+                cofferList.AddRange(db.Coffers.Where(x => x.AmountFunded < x.Amount && x.Month > month && x.Month < month + 5 && !x.Necessary).Select(x => x).OrderBy(x => x.Month).ThenBy(x => x.Order));
                 return cofferList;
             }
         }
